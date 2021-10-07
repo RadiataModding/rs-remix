@@ -14,6 +14,10 @@
                      |_|  \_\___(_)_|  |_|_/_/ \_\                      
                                                                         
 ```
+# Usage
+Requires PCSX2-EX v3.00.1 or later. Add both maploc.txt and 47B9B2FD ReMiX.lua to your scripts folder and Enable LuaEngine on the emulator.
+
+([Latest Version of PCSX2-EX](https://cdn.discordapp.com/attachments/806031393246281788/879434310434816060/PCSX2-EX.v3.10.0.7z), I would link the repository for it, but it is no longer available.)
 # List of changes:
 - Revamped Boss Battles
 - New Cutscenes 
