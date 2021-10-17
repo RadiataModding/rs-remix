@@ -38,6 +38,15 @@ speedUp = true
 --Relock City of Flowers @ Path Selection
 
 function _OnFrame()
+	--Force Progressive Mode Screen
+	if progressiveMode then
+		if progressive < 77 then
+			WriteInt(0x0037FD78, 0x50005000)
+			progressive = progressive + 1
+		elseif progressive == 77 then
+			progressiveMode = false
+		end
+	end
 	--Run the visual mods
 	visualMods()	
 	-- Check if pointers are loaded
@@ -306,6 +315,18 @@ function bossBattles()
 		--Update Shop @ Beast Pit
 		itemChanger(0x82, 11, 0x10063)
 		itemChanger(0x82, 12, 0x10062)
+
+		--Update Berry Shop
+		itemChanger(0x85, 7, 0x10353)
+
+		--Update Shop @ Chic Records
+		for i=0,0x31,1 do
+			local item = 0x102D3
+			local slot = 1
+			item = item + i
+			slot = slot + i
+			itemChanger(0x83, slot, item)
+		end
 
 		--Update Commands Shop
 		for i=0,26,1 do
@@ -1286,7 +1307,7 @@ function statueShortcut()
 		statuepointer = GetPointer(statuepointer, 0x10)
 			if statuepointer > 0x01000000 and statuepointer < 0x02000000 then
 				statuepointer = GetPointer(statuepointer, 0x704)
-				if readFlag(1) and ReadShort(statuepointer) == 0x2F9 then
+				if ReadShort(statuepointer) == 0x2F9 then
 					WriteInt(statuepointer, 0x2F2)
 				end
 			end
@@ -1401,7 +1422,7 @@ end
 
 
 function _OnBoot()
-
+	progressiveMode = true
 end
 
 function _OnInit()
@@ -1418,6 +1439,7 @@ function _OnInit()
 	end
 	file:close()
 	-- Initialize variables
+	progressive = 0
 	curLoc = 0x0
 	charSwap = false
 	inBattle = false
